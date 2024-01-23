@@ -1,6 +1,6 @@
-"""gesion_des_erreur
+"""gesion_des_error
 """
-# [erreur]
+# [error]
 import turtle
 # [FENETRE_SCREEN]
 FENETRE_SCREEN = turtle.Screen()
