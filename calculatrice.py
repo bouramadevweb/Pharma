@@ -1,29 +1,50 @@
+import os
 import pandas as pd
 
-def calculatrice_additi():
+def addition_et_enregistrement():
     try:
-        # Saisie des nombres à additionner
-        nombre1 = float(input("Entrez le premier nombre : "))
-        nombre2 = float(input("Entrez le deuxième nombre : "))
-
-        # Effectuer l'addition
-        resultat = nombre1 + nombre2
-
-        # Afficher le résultat intermédiaire
-        print(f"Résultat intermédiaire : {nombre1} + {nombre2} = {resultat}")
-
-        # Enregistrer le résultat dans le fichier bcoul.csv
-        chemin_fichier_sortie = 'bcoul.csv'
-        df = pd.DataFrame({'nombre1': [nombre1], 'nombre2': [nombre2], 'resultat': [resultat]})
-        df.to_csv(chemin_fichier_sortie, mode='a', header=not pd.read_csv(chemin_fichier_sortie).index.any(), index=False)
-
-        print("Opération terminée avec succès. Résultat enregistré dans", chemin_fichier_sortie)
-    # gestion des erreur
+        # Saisir les valeurs de l'utilisateur
+        valeur1 = float(input("Entrez la première valeur : "))
+        valeur2 = float(input("Entrez la deuxième valeur : "))
     except ValueError:
-        print("Erreur : Veuillez saisir des nombres valides.")
-    except Exception as e:
-        print(f"Erreur inattendue : {e}")
+        print("Erreur : Veuillez entrer des valeurs numériques.")
+        return None
 
-# appel  de function
-calculatrice_addition_enregistrement_csv()
- 
+    # Effectuer l'addition
+    resultat = valeur1 + valeur2
+
+    # Créer un DataFrame avec les valeurs
+    data = {'Valeur1': [valeur1], 'Valeur2': [valeur2], 'Résultat': [resultat]}
+    df = pd.DataFrame(data)
+
+    # Définir le nom du répertoire par défaut
+    repertoire = 'resultats_directory'
+
+    # Créer le répertoire s'il n'existe pas
+    if not os.path.exists(repertoire):
+        os.makedirs(repertoire)
+
+    # Définir le nom du fichier CSV par défaut
+    fichier_csv = os.path.join(repertoire, 'resultats.csv')
+
+    try:
+        # Ajouter le DataFrame au fichier CSV ou le créer s'il n'existe pas
+        df.to_csv(fichier_csv, mode='a', header=not os.path.isfile(fichier_csv), index=False)
+    except Exception as e:
+        print(f"Erreur lors de l'enregistrement dans le fichier CSV : {e}")
+        return None
+
+    # Retourner le résultat de l'addition
+    return resultat
+
+# Exemple d'utilisation
+resultat = addition_et_enregistrement()
+
+def main():
+    if resultat is not None:
+        print(f"Le résultat de l'addition a été enregistré dans le répertoire 'resultats_directory'.")
+    else:
+        print("Opération annulée en raison d'une erreur.")
+
+# Appel de la fonction main
+main()
