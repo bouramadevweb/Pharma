@@ -1,6 +1,6 @@
 import pandas as pd
 
-def calculatrice_addition_enregistrement_csv():
+def calculatrice_additi():
     try:
         # Saisie des nombres à additionner
         nombre1 = float(input("Entrez le premier nombre : "))
@@ -24,6 +24,6 @@ def calculatrice_addition_enregistrement_csv():
     except Exception as e:
         print(f"Erreur inattendue : {e}")
 
-# Exemple d'utilisation
+# appel  de function
 calculatrice_addition_enregistrement_csv()
  
